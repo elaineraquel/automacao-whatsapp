@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automação WhatsApp - Guia Visual Interativo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .flow-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .flow-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        .flow-step .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .flow-step h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .flow-step p {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .arrow {
+            font-size: 2em;
+            color: #667eea;
+            margin: 0 10px;
+        }
+        
+        .section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            border-radius: 10px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .tool-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tool-card .emoji {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .tool-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .tool-card .price {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 30px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #667eea;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 25px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            border: 4px solid white;
+        }
+        
+        .timeline-item h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 10px 5px;
+            transition: background 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .button:hover {
+            background: #764ba2;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 10px;
+            min-width: 150px;
+        }
+        
+        .stat-card .number {
+            font-size: 2.5em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .stat-card .label {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .flow-diagram {
+                flex-direction: column;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Automação WhatsApp para Afiliados</h1>
+        <p class="subtitle">Guia Visual Completo - 6 a 8 mensagens automáticas por dia</p>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="number">R$ 0</div>
+                <div class="label">Custo Mensal</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">6-8</div>
+                <div class="label">Msgs/Dia</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">~240</div>
+                <div class="label">Msgs/Mês</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">100%</div>
+                <div class="label">Automático</div>
+            </div>
+        </div>
+
+        <!-- FLUXO PRINCIPAL -->
+        <div class="section">
+            <h2>📊 Fluxo da Automação</h2>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <div class="icon">📝</div>
+                    <h3>1. Google Sheets</h3>
+                    <p>Você adiciona ofertas na planilha</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="flow-step">
+                    <div class="icon">⚙️</div>
+                    <h3>2. Make.com</h3>
+                    <p>Lê e processa automaticamente</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="flow-step">
+                    <div class="icon">🔌</div>
+                    <h3>3. Evolution API</h3>
+                    <p>Conecta com WhatsApp</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="flow-step">
+                    <div class="icon">💬</div>
+                    <h3>4. Grupos</h3>
+                    <p>Mensagem enviada!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FERRAMENTAS -->
+        <div class="section">
+            <h2>🛠️ Ferramentas Necessárias (Todas Gratuitas!)</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="emoji">📊</div>
+                    <h3>Google Sheets</h3>
+                    <p>Planilha para gerenciar suas ofertas</p>
+                    <div class="price">GRÁTIS</div>
+                    <p>✅ Você já tem!</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="emoji">🔄</div>
+                    <h3>Make.com</h3>
+                    <p>Plataforma de automação visual</p>
+                    <div class="price">GRÁTIS</div>
+                    <p>✅ 1.000 operações/mês</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="emoji">📱</div>
+                    <h3>Evolution API</h3>
+                    <p>Conexão com WhatsApp</p>
+                    <div class="price">GRÁTIS</div>
+                    <p>✅ Hospedagem no Railway</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="emoji">🖼️</div>
+                    <h3>Imgur ou Drive</h3>
+                    <p>Hospedar imagens dos produtos</p>
+                    <div class="price">GRÁTIS</div>
+                    <p>✅ Upload ilimitado</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PASSO A PASSO -->
+        <div class="section">
+            <h2>📝 Passo a Passo Simplificado</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Passo 1: Criar Planilha Google Sheets</h3>
+                    <p>Estrutura básica com colunas: Produto, Link, Descrição, Imagem, Preço, Status, Hora</p>
+                    <div class="highlight">
+                        <strong>⏱️ Tempo:</strong> 10 minutos<br>
+                        <strong>🎯 Objetivo:</strong> Base de dados das ofertas
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>Passo 2: Configurar Evolution API no Railway</h3>
+                    <p>Deploy automático, conectar WhatsApp via QR Code, pegar credenciais</p>
+                    <div class="highlight">
+                        <strong>⏱️ Tempo:</strong> 15 minutos<br>
+                        <strong>🎯 Objetivo:</strong> Conexão com WhatsApp
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>Passo 3: Pegar IDs dos Grupos WhatsApp</h3>
+                    <p>Usar o Manager da Evolution API para listar grupos e copiar IDs</p>
+                    <div class="highlight">
+                        <strong>⏱️ Tempo:</strong> 5 minutos<br>
+                        <strong>🎯 Objetivo:</strong> Saber onde enviar
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>Passo 4: Hospedar Imagens</h3>
+                    <p>Upload no Imgur ou Google Drive, copiar links públicos</p>
+                    <div class="highlight">
+                        <strong>⏱️ Tempo:</strong> 10 minutos<br>
+                        <strong>🎯 Objetivo:</strong> Imagens visíveis nas mensagens
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>Passo 5: Criar Cenário no Make.com</h3>
+                    <p>Conectar Google Sheets → Iterator → HTTP (WhatsApp) → Update Sheets</p>
+                    <div class="highlight">
+                        <strong>⏱️ Tempo:</strong> 30 minutos<br>
+                        <strong>🎯 Objetivo:</strong> Automação completa
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>Passo 6: Testar e Ativar</h3>
+                    <p>Executar teste manual, verificar funcionamento, ativar schedule</p>
+                    <div class="highlight">
+                        <strong>⏱️ Tempo:</strong> 10 minutos<br>
+                        <strong>🎯 Objetivo:</strong> Sistema no ar! 🎉
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXEMPLO PLANILHA -->
+        <div class="section">
+            <h2>📋 Exemplo de Planilha</h2>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; background: white;">
+                    <thead>
+                        <tr style="background: #667eea; color: white;">
+                            <th style="padding: 12px; border: 1px solid #ddd;">Produto</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Link_Afiliado</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Descrição</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">URL_Imagem</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Preço</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Status</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Hora_Enviar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Fone JBL</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">https://amzn.to/xyz</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Fone bluetooth top!</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">https://i.imgur.com/abc.jpg</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">R$ 89,90</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: #d4edda;">PRONTO</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">09:00</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; border: 1px solid #ddd;">Mouse Gamer</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">https://amzn.to/abc</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">RGB, 12000 DPI</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">https://i.imgur.com/def.jpg</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">R$ 45,00</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: #fff3cd;">ENVIADO</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">11:00</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Teclado Mecânico</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">https://amzn.to/123</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Switch Blue, RGB</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">https://i.imgur.com/ghi.jpg</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">R$ 129,90</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; background: #d4edda;">PRONTO</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">14:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- HORÁRIOS RECOMENDADOS -->
+        <div class="section">
+            <h2>⏰ Horários Recomendados (6-8 msgs/dia)</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="emoji">☀️</div>
+                    <h3>Manhã (2 msgs)</h3>
+                    <p><strong>09:00</strong> - Produtos para trabalho<br>
+                    <strong>11:00</strong> - Pausa para café</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="emoji">🌞</div>
+                    <h3>Tarde (3 msgs)</h3>
+                    <p><strong>14:00</strong> - Pós-almoço<br>
+                    <strong>16:00</strong> - Meio da tarde<br>
+                    <strong>18:00</strong> - Saída trabalho</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="emoji">🌙</div>
+                    <h3>Noite (1-3 msgs)</h3>
+                    <p><strong>20:00</strong> - Prime time<br>
+                    <strong>21:30</strong> - Opcional</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXEMPLO DE MENSAGEM -->
+        <div class="section">
+            <h2>💬 Exemplo de Mensagem Automatizada</h2>
+            <div class="code-block">
+🔥 *Fone JBL Bluetooth* 🔥
+
+Som de qualidade profissional, bateria de 20h, 
+conexão bluetooth 5.0, resistente à água!
+
+💰 *R$ 89,90*
+
+🛒 https://amzn.to/xyz123
+
+⏰ Oferta por tempo limitado!
+            </div>
+            <div class="success-box">
+                <strong>✅ Resultado esperado:</strong> Mensagem com imagem do produto anexada, texto formatado e link de afiliado rastreável!
+            </div>
+        </div>
+
+        <!-- DICAS IMPORTANTES -->
+        <div class="section">
+            <h2>⚠️ Dicas Para Evitar Problemas</h2>
+            
+            <div class="warning-box">
+                <strong>🚫 NÃO faça:</strong><br>
+                • Enviar mais de 10 msgs/dia no mesmo grupo<br>
+                • Usar sempre a mesma mensagem (varie o template)<br>
+                • Enviar em horários muito cedo (antes 8h) ou tarde (depois 22h)<br>
+                • Esquecer de pausar em feriados/fins de semana
+            </div>
+            
+            <div class="success-box">
+                <strong>✅ FAÇA:</strong><br>
+                • Varie os horários (não envie sempre no mesmo)<br>
+                • Adicione delay de 3-5 segundos entre envios<br>
+                • Teste primeiro em um grupo de teste<br>
+                • Monitore a planilha semanalmente<br>
+                • Use mensagens autênticas e úteis
+            </div>
+        </div>
+
+        <!-- PRÓXIMOS PASSOS -->
+        <div class="section" style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <h2 style="color: white;">🎯 Pronto Para Começar?</h2>
+            <p style="margin: 20px 0; font-size: 1.1em;">Siga o guia passo a passo completo no documento principal!</p>
+            <div style="margin-top: 30px;">
+                <a href="https://www.make.com" class="button" style="background: white; color: #667eea;">Criar Conta Make.com</a>
+                <a href="https://railway.app" class="button" style="background: white; color: #667eea;">Deploy Evolution API</a>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee; color: #666;">
+            <p>📚 Documentação completa disponível no arquivo: <strong>whatsapp-afiliados-automation.md</strong></p>
+            <p style="margin-top: 10px;">Criado com ❤️ por Claude | Março 2026</p>
+        </div>
+    </div>
+</body>
+</html>
